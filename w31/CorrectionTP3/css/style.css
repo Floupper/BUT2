@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  position: relative;
+  place-items: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.message {
+  right: 0;
+  bottom: 4em;
+  padding-block: 1em;
+  position: absolute;
+  padding-inline: 1.5em 2em;
+  background-color: rgba(255, 80, 80, 0.2);
+}
+.message::before {
+  top: 0;
+  left: 0;
+  content: "";
+  height: 100%;
+  width: 0.25em;
+  position: absolute;
+  background-color: crimson;
+}
+
+.form {
+  gap: 1em;
+  width: 100%;
+  display: flex;
+  max-width: 20em;
+  align-items: flex-end;
+  flex-direction: column;
+}
+.form--title {
+  width: 100%;
+  font-weight: 700;
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+.form__input {
+  width: 100%;
+  position: relative;
+}
+.form__input--field {
+  width: 100%;
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.form__input--field:focus + .form__input--label, .form__input--field:valid + .form__input--label {
+  top: 0;
+  opacity: 1;
+  scale: 0.75;
+}
+.form__input--label {
+  top: 50%;
+  left: 1em;
+  opacity: 0.3;
+  padding: 0.5em;
+  translate: 0 -50%;
+  position: absolute;
+  pointer-events: none;
+  transform-origin: left;
+  background-color: white;
+  transition-timing-function: ease-in-out;
+  transition-duration: 100ms, 200ms, 200ms;
+  transition-property: opacity, top, scale;
+}
+.form__input:hover .form__input--label {
+  opacity: 1;
+}
+.form--submit {
+  border: none;
+  color: white;
+  border-radius: 0.5em;
+  padding: 1em 2.5em;
+  background-color: red;
+  transition: background-color 100ms ease-in-out;
+}
+.form--submit:hover {
+  background-color: crimson;
+}
+
+/*# sourceMappingURL=style.css.map */

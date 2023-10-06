@@ -1,0 +1,51 @@
+@startuml
+
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide enum methods
+hide interface attributes
+
+package trafficlight {
+	class TrafficLight {
+		- isOn: Boolean
+		+ <<create>> TrafficLight()
+		+ isOn() : Boolean
+		+ getColor() : LightColor
+		+ onOff()
+		+ switchColor()
+		+ setSwitchColorStrategy( strategy:SwitchColorStrategy )
+	}
+	enum LightColor {
+		GREEN
+		ORANGE
+		RED
+	}
+	class SwitchColorStrategy <<interface>> {
+		+ switchColor( currentColor:LightColor ) : LightColor
+	}
+	class SwitchFrance implements SwitchColorStrategy {
+		+ <<create>> SwitchFrance()
+		+ switchColor( currentColor:LightColor ) : LightColor
+	}
+	class SwitchGermany implements SwitchColorStrategy {
+		+ <<create>> SwitchGermany( currentColor:LightColor )
+		+ switchColor( currentColor:LightColor ) : LightColor
+	}
+}
+
+class TrafficLightApp {
+	+ {static} main( args:String[] )
+}
+
+TrafficLight *-l-> "1\n- color" LightColor : > alternate
+TrafficLight o--> "1\n- strategy" SwitchColorStrategy : > choose
+SwitchGermany *-u-> "1\n- lastColor" LightColor : > remember
+TrafficLightApp ..> TrafficLight : > <<create>>
+TrafficLightApp ..> LightColor : > <<uses>>
+TrafficLightApp ..> SwitchGermany : > <<uses>>
+TrafficLightApp ..> SwitchFrance : > <<uses>>
+'SwitchGermany *-l-> "1\n- _lastColor" LightColor : > remember
+'TrafficLightApp .d.> SwitchGermany : > <<uses>>
+
+@enduml

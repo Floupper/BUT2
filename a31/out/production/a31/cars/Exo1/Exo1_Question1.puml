@@ -1,0 +1,50 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+hide enum methods
+
+abstract class Car
+{
+    - Plein: Integer
+    + <<create>> Car()
+    + refuel()
+    + {abstract} honk(): String
+    + {abstract} speedUp(): String
+}
+
+class Subaru
+{
+    + <<create>> Subaru()
+    + honk(): String
+    + speedUp(): String
+}
+
+class Jeep
+{
+    + <<create>> Jeep()
+    + honk(): String
+    + speedUp(): String
+}
+
+class FiatMultipla
+{
+    + <<create>> FiatMultipla()
+    + honk(): String
+    + speedUp(): String
+}
+
+class CarApp
+{
+    + {static} main(args: String[])
+}
+
+Subaru --|> Car
+Jeep --|> Car
+FiatMultipla --|> Car
+
+CarApp ..> Car:<<use>>
+CarApp ..> Subaru:<<use>>
+CarApp ..> Jeep:<<use>>
+CarApp ..> FiatMultipla:<<use>>
+
+@enduml

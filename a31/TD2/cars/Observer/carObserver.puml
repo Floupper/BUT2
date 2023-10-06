@@ -1,0 +1,86 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+hide enum methods
+
+package cars.Observer{
+    abstract class Car
+    {
+        - Plein: Integer
+        + <<create>> Car()
+        + refuel()
+        + {abstract} honk(): String
+        + {abstract} speedUp(): String
+    }
+
+    class Subaru
+    {
+        + <<create>> Subaru()
+        + honk(): String
+        + speedUp(): String
+    }
+
+    class Jeep
+    {
+        + <<create>> Jeep()
+        + honk(): String
+        + speedUp(): String
+    }
+
+    class FiatMultipla
+    {
+        + <<create>> FiatMultipla()
+        + honk(): String
+        + speedUp(): String
+    }
+
+    class CarFactory
+    {
+        + <<create>> CarFactory()
+        + createSubaru(): Car
+        + createJeep(): Car
+        + createFiatMultipla(): Car
+    }
+
+    interface "<<interface>>\nCarObserver" as CarObserver{
+        + speedUpUpdate(car: Car)
+        + hunkUpdate(car: Car)
+    }
+
+    class speedUpObserver{
+        + speedUpUpdate(car: Car)
+        + hunkUpdate(car: Car)
+    }
+
+    class HunkObserver{
+        + speedUpUpdate(car: Car)
+        + hunkUpdate(car: Car)
+    }
+}
+
+
+class CarApp
+{
+    + {static} main(args: String[])
+}
+
+Subaru --|> Car
+Jeep --|> Car
+FiatMultipla --|> Car
+
+Car o-> "*\n- _observers" CarObserver: < observe
+
+
+
+CarApp ..> Car:<<use>>
+CarApp ..> Subaru:<<use>>
+CarApp ..> Jeep:<<use>>
+CarApp ..> FiatMultipla:<<use>>
+
+CarFactory ..> Car: <<use>>
+CarFactory ..> Subaru: <<use>>
+CarFactory ..> Jeep: <<use>>
+CarFactory ..> FiatMultipla: <<use>>
+CarFactory <.. CarApp: <<use>>
+
+@enduml

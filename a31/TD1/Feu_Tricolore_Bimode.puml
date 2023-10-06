@@ -1,0 +1,55 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+hide enum methods
+
+class AppLight
+{
+    +main(args string[]){static}
+}
+
+class TrafficLigth
+{
+    -_state : Boolean
+    +switchState()
+    +switchLightColor()
+    +getState() : Boolean
+    +getColor() : Colors
+    +setTrafficLightMode(tlm : TrafficLightMode)
+}
+
+interface "<<interface>>\nTrafficLightMode" as TrafficLightMode
+{
+    +switchLight(color : Colors) : Colors
+}
+
+class Français implements TrafficLightMode
+{
+    +switchLight(color : Colors) : Colors
+}
+
+class German implements TrafficLightMode
+{
+    +switchLight(color : Colors) : Colors
+}
+
+class Bimode implements TrafficLightMode
+{
+    +switchLight(color: Colors): Colors
+}
+
+enum Colors
+{
+    +RED
+    +ORANGE
+    +GREEN
+}
+
+TrafficLigth  "1" --> "1\n-_color" Colors : <<owns>>
+AppLight ..> TrafficLigth : <<use>>
+AppLight ..> Colors : <<use>>
+AppLight ..> TrafficLightMode : <<use>>
+AppLight ..> Français : <<use>>
+TrafficLigth "1" o-> "1\n-_trafficLightMode" TrafficLightMode : select
+German  "1"--> "1\n-_previousColor" Colors : <<owns>>
+@enduml
